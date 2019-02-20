@@ -8,10 +8,12 @@ class SimpleSlider extends React.Component {
     this.state = {
       data : [],
     };
-  };
-
+    
+  }
+  
   componentDidMount(){
-    fetch(`/method/photos.getAll?count=10&access_token=a6afefaa25ea8c7660df7d04fd6ed29b5838a80aab54890d57a4547951b5c074d87146954c044995c8b9c&user_id=17366009&v=5.52`)
+    const accessToken = this.props.accessToken;
+    fetch(`/method/photos.getAll?count=10&access_token=${accessToken}&user_id=17366009&v=5.52`)
       .then(res => res.json())
       .then(photos => {
         console.log(photos); 
@@ -19,7 +21,7 @@ class SimpleSlider extends React.Component {
           data: photos.response.items, 
         });  
       });   
-  }
+  };
 
   render() {
     var settings = {
@@ -31,8 +33,7 @@ class SimpleSlider extends React.Component {
     };
 
     const {data} = this.state;
-    console.log(data);
-   
+    
     return (
       <div className="container" >
         <Slider {...settings} > 
@@ -43,5 +44,4 @@ class SimpleSlider extends React.Component {
     );
   };  
 };
-
 export default SimpleSlider;
